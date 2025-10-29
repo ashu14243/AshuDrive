@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+  <title>Form with Theme Toggle</title>
+</head>
+<body class="bg-gray-50 text-gray-900 transition-colors duration-300">
+
+  <!-- Toggle Button -->
+  <div class="flex justify-end p-4">
+    <button id="themeToggle" class="flex items-center gap-2 px-3 py-1.5 border rounded-md shadow-sm bg-white hover:bg-gray-100">
+      <svg id="themeIcon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-5 h-5 text-gray-800" viewBox="0 0 24 24">
+        <path d="M21.75 15.5a9.75 9.75 0 01-13.25-13 9.75 9.75 0 1013.25 13z"/>
+      </svg>
+      <span class="text-sm font-medium">Dark</span>
+    </button>
+  </div>
+
+  <!-- Form -->
+  <form id="mainForm" class="max-w-lg mx-auto mt-6 p-6 rounded-lg shadow-lg transition-all duration-500 bg-gradient-to-r from-yellow-300 to-orange-400" action="/user/register" method="post">
+    <!-- <div class="grid gap-6 mb-6 md:grid-cols-2"> -->
+      <div>
+        <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">Enter your name</label>
+        <input type="text" id="first_name" placeholder="John"
+          name="username"
+          class="bg-white border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 text-gray-900" required>
+      </div>
+    </div>
+
+    <div class="mb-6">
+      <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email address</label>
+      <input type="email" id="email" placeholder="john.doe@company.com"
+         name="email"
+        class="bg-white border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 text-gray-900" required>
+    </div>
+
+    <div class="mb-6">
+      <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Password</label>
+      <input type="password" id="password" placeholder="•••••••••"
+        name="password"
+        class="bg-white border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 text-gray-900" required>
+    </div>
+
+    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 w-full sm:w-auto">
+      Submit
+    </button>
+  </form>
+
+  <script>
+    const toggleBtn = document.getElementById('themeToggle');
+    const icon = document.getElementById('themeIcon');
+    const body = document.body;
+    const form = document.getElementById('mainForm');
+    const labels = document.querySelectorAll('label');
+    const inputs = document.querySelectorAll('input');
+
+    toggleBtn.addEventListener('click', () => {
+      const isDark = body.classList.toggle('dark');
+
+      if (isDark) {
+        body.classList.replace('bg-gray-50', 'bg-gray-900');
+        form.classList.replace('from-yellow-300', 'from-gray-800');
+        form.classList.replace('to-orange-400', 'to-gray-700');
+        form.classList.add('text-white');
+        labels.forEach(l => l.classList.replace('text-gray-900', 'text-white'));
+        inputs.forEach(i => {
+          i.classList.replace('bg-white', 'bg-gray-700');
+          i.classList.replace('text-gray-900', 'text-white');
+          i.classList.replace('border-gray-300', 'border-gray-600');
+        });
+        icon.innerHTML = '<path d="M12 3a9 9 0 000 18 9 9 0 000-18zm0 16a7 7 0 110-14 7 7 0 010 14z"/>';
+        toggleBtn.querySelector('span').textContent = 'Light';
+      } else {
+        body.classList.replace('bg-gray-900', 'bg-gray-50');
+        form.classList.replace('from-gray-800', 'from-yellow-300');
+        form.classList.replace('to-gray-700', 'to-orange-400');
+        form.classList.remove('text-white');
+        labels.forEach(l => l.classList.replace('text-white', 'text-gray-900'));
+        inputs.forEach(i => {
+          i.classList.replace('bg-gray-700', 'bg-white');
+          i.classList.replace('text-white', 'text-gray-900');
+          i.classList.replace('border-gray-600', 'border-gray-300');
+        });
+        icon.innerHTML = '<path d="M21.75 15.5a9.75 9.75 0 01-13.25-13 9.75 9.75 0 1013.25 13z"/>';
+        toggleBtn.querySelector('span').textContent = 'Dark';
+      }
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+</body>
+</html>
